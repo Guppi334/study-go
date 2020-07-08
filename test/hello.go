@@ -2,22 +2,28 @@ package main
 
 import "fmt"
 
-func one(x *int) {
-	*x = 1
-}
-
 func main() {
-	var n int = 100
-	one(&n)
-	fmt.Println(n)
 
-	// fmt.Println(n)
+	s := make([]int, 0)
+	fmt.Printf("%T\n", s)
 
-	// fmt.Println(&n)
+	m := make(map[string]int)
+	fmt.Printf("%T\n", m)
 
-	// var p *int = &n
+	ch := make(chan int)
+	fmt.Printf("%T\n", ch)
 
-	// fmt.Println(p)
+	var st = new(struct{})
+	fmt.Printf("%T\n", st)
 
+	// var p *int = new(int)
 	// fmt.Println(*p)
+	// *p++
+	// fmt.Println(*p)
+
+	// var p2 *int
+	// fmt.Println(p2)
+	// *p2++
+	// fmt.Println(*p2)
+
 }
