@@ -2,32 +2,29 @@ package main
 
 import "fmt"
 
-type Human interface {
-	Say() string
-}
+func do(i interface{}) {
+	// ii := i.(int)
+	// ii *= 2
+	// fmt.Println(ii)
+	// ss := i.(string)
+	// fmt.Println(ss + "!")
 
-type Person struct {
-	Name string
-}
-
-func (p *Person) Say() string {
-	p.Name = "Mr." + p.Name
-	fmt.Println(p.Name)
-	return p.Name
-}
-
-func DriveCar(human Human) {
-	if human.Say() == "Mr.Mike" {
-		fmt.Println("Run")
-	} else {
-		fmt.Println("Get out")
+	switch v := i.(type) {
+	case int:
+		fmt.Println(v * 2)
+	case string:
+		fmt.Println(v + "!")
+	default:
+		fmt.Printf("I dont know %T\n", v)
 	}
 }
 
 func main() {
-	var mike Human = &Person{"Mike"}
-	var x Human = &Person{"x"}
+	do(10)
+	do("Mike")
+	do(true)
 
-	DriveCar(mike)
-	DriveCar(x)
+	var i int = 10
+	ii := float64(10)
+	fmt.Println(i, ii)
 }
