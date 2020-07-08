@@ -1,40 +1,38 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-	"time"
-)
+import "fmt"
 
-func producer(ch chan int, i int) {
-	// something
-	ch <- i * 2
+func producer(first chan int) {
+	defer close(first)
+	for i := 0; i < 10; i++ {
+		first <- i
+	}
 }
 
-func consumer(ch chan int, wg *sync.WaitGroup) {
-	for i := range ch {
-		func() {
-			defer wg.Done()
-			fmt.Println("process", i*1000)
-		}()
+func multi2(first <-chan int, second chan<- int) {
+	defer close(second)
+	for i := range first {
+		second <- i * 2
 	}
-	fmt.Println("################")
+}
+
+func multi4(second <-chan int, third chan<- int) {
+	defer close(third)
+	for i := range second {
+		third <- i * 4
+	}
 }
 
 func main() {
-	var wg sync.WaitGroup
-	ch := make(chan int)
+	first := make(chan int)
+	second := make(chan int)
+	third := make(chan int)
 
-	// Producer
-	for i := 0; i < 10; i++ {
-		wg.Add(1)
-		go producer(ch, i)
+	go producer(first)
+	go multi2(first, second)
+	go multi4(second, third)
+
+	for result := range third {
+		fmt.Println(result)
 	}
-
-	// Consumer
-	go consumer(ch, &wg)
-	wg.Wait()
-	close(ch)
-	time.Sleep(2 * time.Second)
-	fmt.Println("Done")
 }
