@@ -1,0 +1,56 @@
+簡略の変数宣言は関数内でのみ実行できる
+import, var共に複数のものを宣言する場合、()でくくることで可能
+
+fmt.Printf("%T", 変数名)で変数の型を確認することができる
+他のファイルから呼び出される定数(const)は大文字始まりにする
+
+使わない変数は"_"で記載する
+例)i, _ := strconv.Atoi(s)
+
+varを使用するとsliceでもマップでも初期値はnilになる
+
+可変長引数は(変数名...型)で可能
+例:func foo(params ...int)
+
+配列等を展開するには(...変数名)で可能
+例:foo(s...)
+
+mainの実行が終わった後に実行するように指示するのがdefer
+deferは最後のdeferから実行される
+	fmt.Println("run")
+	defer fmt.Println(1)
+	defer fmt.Println(2)
+	defer fmt.Println(3)
+	fmt.Println("Success")
+	run
+Success
+3
+2
+1
+
+最後にやる処理を書くことが多い
+ファイルを閉じる、DBとのセッションを閉じる等
+	file, _ := os.Open("./hello.go")
+	defer file.Close()
+	data := make([]byte, 100)
+	file.Read(data)
+	fmt.Println(string(data))
+	
+
+log.falatlnを使用するとプログラムが終了するため注意
+
+ログの設定例
+func loggingSettings(logFile string) {
+	logfile, _ := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	multiLogFile := io.MultiWriter(os.Stdout, logfile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	log.SetOutput(multiLogFile)
+}
+
+panicで機能ができなかったことを処理できる
+recoverで対処できる?
+
+panic recoverの使用法がまだあまりわかっていない
+あまり使用しないほうが良い？
+
+
