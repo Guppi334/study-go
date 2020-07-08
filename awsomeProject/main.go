@@ -12,6 +12,7 @@ func main() {
 	fmt.Println(mylib.Average(s))
 
 	mylib.Say()
-
 	under.Hello()
+	person := mylib.Person{Name: "Mike", Age: 24}
+	fmt.Println(person)
 }
