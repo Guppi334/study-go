@@ -70,3 +70,35 @@ channelはcloseを実行しないといけない
 Goのテストライブラリ Ginko
 
 サードパーティのものを県sカウするにはgodoc
+
+cnstの連番を入れてくれるのはiota
+
+osはosに関するもの
+
+
+ファイル等のI/Oに関するものはioutilを使用する ネットワークのパケットの読み取り等
+
+http
+url.Parseでurlが正しいかどうかを判別する
+ResolveReferenceで2つ以上のurlを結合することができる
+http.NewRequestでgetやpostを作成できる
+上に.Header.AddとすることでHEADERを追加することができる
+&を値に入れるときはエンコードが必要
+
+json Marshalでキャピタル、データ型をどうするかは`で指定できる
+例：`json:name`
+omitemptyで空の場合は表示しないようにできる
+structの場合はポインタにする必要がある
+ストラクトの初期値を設定する場合には
+a struct{Name string}{ Name: "Mike"}
+のように記載できる
+
+hmacはAPI認証で使用する
+
+httpのheaderに付与したりする
+
+semaphore goroutineの数を制御できる
+TryAcquireで他のgoroutineが実行できるかをチェック、falseの場合は実行しない等の制御もできる
+
+ini コンフィグファイルを読み込む
+
